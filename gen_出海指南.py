@@ -2334,6 +2334,14 @@ def build_hub(chapters):
     L.append("</body></html>")
     return "\n".join(L)
 
+# =====================================================================
+# 第26–30章（海外意外就医 / 跨国离婚 / 合伙公司治理 / 破产清算 / 法律域外效力）
+# 独立成模块，避免主生成器单文件过长、编辑时互相覆盖。
+# 该模块自带 E() 定义，可被直接 import，无需从本模块反向导入。
+from gen_出海指南_法律章 import CH26, CH27, CH28, CH29, CH30
+for _CH in (CH26, CH27, CH28, CH29, CH30):
+    ch(_CH["no"], _CH["title"], _CH["q"], _CH["intro"], _CH["entries"])
+
 if __name__ == "__main__":
     out = build()
     with open("高性价比出海指南.md", "w", encoding="utf-8") as f:
