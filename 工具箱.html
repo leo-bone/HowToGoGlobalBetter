@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>高性价比出海指南 · 工具箱</title>
+<style>
+:root{--bg:#f6f8fa;--card:#fff;--ink:#1f2328;--mut:#656d76;--line:#d8dee4;--blue:#0969da;--grn:#1a7f37;--red:#cf222e;--amb:#9a6700}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}
+header{background:#0d1117;color:#fff;padding:26px 20px}
+header h1{margin:0;font-size:22px}
+header p{margin:7px 0 0;color:#9da7b3;font-size:13.5px;max-width:840px}
+.nav{max-width:1100px;margin:12px auto 0;padding:0 16px;display:flex;flex-wrap:wrap;gap:8px}
+.nav a{font-size:13px;color:var(--blue);text-decoration:none;padding:5px 11px;border:1px solid var(--line);border-radius:8px;background:#fff}
+.nav a:hover{background:#eef1f4}
+.nav a.cur{background:#0d1117;color:#fff;border-color:#0d1117}
+main{max-width:1100px;margin:18px auto 56px;padding:0 16px}
+.tool{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:16px 0;box-shadow:0 1px 2px rgba(27,31,36,.05)}
+.tool h2{margin:0 0 4px;font-size:18px}
+.tool .sub{color:var(--mut);font-size:13px;margin:0 0 12px}
+.q{font-weight:600;margin:12px 0 8px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font:inherit;font-size:13.5px;padding:8px 14px;border:1px solid var(--line);background:#fff;border-radius:8px;cursor:pointer}
+.opt:hover{border-color:var(--blue);color:var(--blue)}
+.verdict{margin-top:12px;padding:12px 14px;border-radius:8px;background:#eaf4ea;border:1px solid #b9e0bd;font-size:14px}
+.verdict b{color:var(--grn)}
+.verdict.warn{background:#fbf3e4;border-color:#e9cf9a}
+.calc label{display:block;margin:10px 0 4px;font-size:13.5px;font-weight:600}
+.calc select{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font:inherit}
+.calc .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.out{margin-top:14px;padding:14px;border-radius:8px;background:#f0f6ff;border:1px solid #c8e1ff;font-size:14px;display:none;line-height:1.7}
+.out b{color:var(--blue)}
+.grp{margin:16px 0 4px;font-weight:700;font-size:14px;color:#0d1117;border-left:3px solid var(--blue);padding-left:8px}
+.chk{display:flex;align-items:flex-start;gap:9px;padding:7px 0;border-bottom:1px solid #eef1f4;font-size:13.5px}
+.chk input{margin-top:3px}
+.bar{height:10px;background:#eaeef2;border-radius:6px;overflow:hidden;margin:10px 0}
+.bar>i{display:block;height:100%;background:var(--grn);width:0;transition:width .2s}
+.meta{color:var(--mut);font-size:12px;margin-top:6px}
+.tpl{margin:12px 0;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.tpl .th{background:#eef1f4;padding:9px 12px;font-weight:600;font-size:13.5px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.tpl pre{margin:0;padding:12px;background:#0d1117;color:#e6edf3;font:12.5px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap;word-break:break-word}
+.copybtn{font:12px sans-serif;padding:4px 10px;border:1px solid var(--line);background:#fff;border-radius:6px;cursor:pointer}
+.copybtn:hover{border-color:var(--blue);color:var(--blue)}
+.disclaimer{font-size:12px;color:var(--mut);margin-top:8px}
+footer{max-width:1100px;margin:0 auto 40px;padding:0 16px;color:var(--mut);font-size:12px}
+</style>
+</head>
+<body>
+<header><h1>高性价比出海指南 · 工具箱</h1>
+<p>四个能直接用的离线工具：实体选择决策树、出海成本估算器、出海前核对清单、跨境合同模板库。纯前端、无需联网，双击即可用。</p></header>
+<nav class="nav">
+<a href="入口.html">总入口</a>
+<a href="index.html">离线检索</a>
+<a href="速查卡.html">分目的地速查卡</a>
+<a href="工具箱.html" class="cur">工具箱</a>
+<a href="高性价比出海指南.md">正文 MD</a>
+<a href="速查卡.md">速查卡 MD</a>
+<a href="README.md">README</a>
+</nav>
+<main>
+<section class="tool"><h2>① 实体选择决策树</h2><p class="sub">回答几个问题，告诉你该走 ODI / 37号文 / 直接当地注册，以及要不要碰 GDPR。</p><div id="dt"></div></section><section class="tool calc"><h2>② 出海成本估算器</h2><p class="sub">选目的地与业务形态，给「首年真实花费」区间（注册+年审+合规+税），仅供预算参考，以官方为准。</p><div class="row"><div><label>目的地</label><select id="c_country"></select></div><div><label>业务形态</label><select id="c_type"><option value="hold">控股 / IP 壳</option><option value="trade">贸易 / 电商</option><option value="ops">实体经营 + 雇人</option></select></div></div><button class="opt" style="margin-top:12px" onclick="calcCost()">估算</button><div class="out" id="c_out"></div><p class="disclaimer">费用为公开区间估算（2025–2026），含政府费+基础秘书/地址，不含业务本身投入；税率请咨询持牌税务师。</p></section><section class="tool"><h2>③ 出海前核对清单</h2><p class="sub">勾选已完成项，进度自动保存（本机浏览器）。分十大类逐项清，建议出海前 12–24 个月启动。</p><div class="bar"><i id="cl_bar"></i></div><div class="meta"><span id="cl_cnt">0/0</span> 已完成 · 数据仅存本机</div><div id="cl"></div><p style="margin-top:10px"><button class="opt" onclick="exportCL()">导出已勾选</button> <button class="opt" onclick="resetCL()">重置</button></p></section><section class="tool"><h2>④ 跨境合同模板库</h2><p class="sub">可直接复制使用的条款骨架。注意：模板非法律意见，正式签署前请当地律师过目。</p><div id="tpls"></div></section>
+<script>
+const COST={
+"新加坡":{hold:{r:"S$3k–6k/年（含秘书+挂名董事）",tax:"企业所得税17%，前3年应税首S$10万仅4.25%",note:"控股壳也要 minimal substance，否则被穿透；EP需真实薪酬",url:"https://www.acra.gov.sg"},
+trade:{r:"S$5k–12k/首年",tax:"同上；营收超S$100万须注册GST",note:"电商需GST注册与申报",url:"https://www.acra.gov.sg"},
+ops:{r:"S$12k–30k+/首年",tax:"同上",note:"雇人需EP/DP准证，无CPF但需公积金等效",url:"https://www.mom.gov.sg"}},
+"香港":{hold:{r:"HK$3k–8k/年（注册+秘书+地址）",tax:"利得税16.5%（地域来源征税，离岸可豁免）",note:"须有实际业务记录支撑离岸主张",url:"https://www.cr.gov.hk"},
+trade:{r:"HK$5k–15k/首年",tax:"同上",note:"转口贸易注意转让定价与来源地判定",url:"https://www.cr.gov.hk"},
+ops:{r:"HK$15k–40k+/首年",tax:"同上",note:"雇人强积金(MPF)强制",url:"https://www.mpfa.org.hk"}},
+"阿联酋(迪拜)":{hold:{r:"AED 15k–35k/年（自由区执照+地址）",tax:"企业税9%，自由区合格收入0%；无个税",note:"自由区须满足「合格收入+实质」测试",url:"https://www.mof.gov.ae"},
+trade:{r:"AED 20k–50k/首年",tax:"同上",note:"电商可走自由区，注意经济实质申报",url:"https://www.mof.gov.ae"},
+ops:{r:"AED 40k–120k+/首年",tax:"同上",note:"雇人需工作签+保人，2024起共居法放宽",url:"https://u.ae"}},
+"美国(特拉华)":{hold:{r:"US$1k–3k/首年（注册+代理+特许经营税）",tax:"联邦无州所得税；C-Corp 21%联邦税；DE特许经营税",note:"非美税务居民持C-Corp注意FIRPTA/遗产税",url:"https://corp.delaware.gov"},
+trade:{r:"US$2k–6k/首年",tax:"同上+销售税(Nexus)",note:"电商注意各州销售税关联",url:"https://corp.delaware.gov"},
+ops:{r:"US$5k–20k+/首年",tax:"同上+工资税",note:"雇人需EIN+州工资税，劳工法州异",url:"https://www.irs.gov"}},
+"越南":{hold:{r:"US$1k–3k/设立",tax:"企业所得税20%；优惠区10–15%",note:"外资需投资登记证(IRC)+企业登记证(ERC)",url:"https://dpi.gov.vn"},
+trade:{r:"US$2k–6k/首年",tax:"同上",note:"进出口注意HS编码与关税",url:"https://dpi.gov.vn"},
+ops:{r:"US$5k–20k+/首年",tax:"同上",note:"雇人须社保+工会费，解雇补偿法定",url:"https://www.molisa.gov.vn"}},
+"马来西亚":{hold:{r:"RM1k–3k/设立",tax:"企业所得税24%，中小企首RM150k仅17%",note:"居民境外收入豁免延至2036",url:"https://www.ssm.com.my"},
+trade:{r:"RM2k–6k/首年",tax:"同上",note:"电商需SSM注册与税务号",url:"https://www.ssm.com.my"},
+ops:{r:"RM5k–18k+/首年",tax:"同上",note:"雇人EP需薪资门槛(RM5k起，依岗位)",url:"https://www.imi.gov.my"}},
+"英国":{hold:{r:"£50–400/设立",tax:"企业所得税25%（利润>£250k）",note:"有限公司不具避税优势，重合规",url:"https://www.gov.uk"},
+trade:{r:"£200–1k/首年",tax:"同上+VAT(阈值£90k)",note:"电商达阈值须VAT注册",url:"https://www.gov.uk"},
+ops:{r:"£1k–5k+/首年",tax:"同上+雇主NIC",note:"雇人有法定最低薪资与解雇保护",url:"https://www.acas.org.uk"}}
+};
+const CL=[
+ {g:"身份与签证",i:["确定目的国长期签证/居留路径","护照有效期>6个月且留足空白页","配偶/子女依附签办理","无犯罪记录公证(按需)","生物信息采集预约"]},
+ {g:"税务居民",i:["判定自身中国税务居民身份","境外收入申报(个税B表,6/30前)","CRS账户梳理与申报","退籍/转税籍规划(若适用)","查阅双边税收协定"]},
+ {g:"资产与银行",i:["开立非居民银行账户(EMI如Wise/Airwallex)","资产与经营主体隔离","大额资产来源证明备查","加密/券商账户合规梳理","外汇合规汇出路径"]},
+ {g:"公司与合规",i:["ODI/37号文备案(如适用)","经济实质安排(当地董事/秘书)","转让定价文档准备","当地公司秘书/注册地址","年报与审计按时提交"]},
+ {g:"雇佣与团队",i:["EOR vs 本地雇佣决策","劳动合同本地法合规","解雇成本与通知期测算","社保/公积金等效安排","跨境股权激励税务"]},
+ {g:"子女教育",i:["国际/公立入学资格确认","学籍与成绩单公证","陪读签办理","教育金跨境安排","升学路径(IB/A-level)"]},
+ {g:"保险与医疗",i:["国际医疗险(含既往症条款)","意外/医疗撤离险","旅行疫苗与常用药合规","牙科/生育覆盖确认","保单跨境理赔流程"]},
+ {g:"法律与合同",i:["仲裁条款(ICC/SIAC)入合同","跨境婚姻/财产协议","遗嘱跨境效力确认","IP权属与转让条款","数据合规(GDPR/PIPL)"]},
+ {g:"数据与隐私",i:["用户数据跨境传输机制","隐私政策本地化","Cookie/同意管理","数据泄露应急预案","AI产品EU AI Act合规"]},
+ {g:"撤离预案",i:["政治/制裁风险监控","资产快速变现通道","第二身份/备用护照","关键文件数字备份","使领馆紧急备案"]}
+];
+const TPL=[
+ {n:"仲裁条款（ICC）", b:"Any dispute arising out of or in connection with this Contract, including any question regarding its existence, validity or termination, shall be referred to and finally resolved under the Rules of Arbitration of the International Chamber of Commerce (ICC) by one or more arbitrators appointed in accordance with said Rules. The seat of arbitration shall be [Singapore / Hong Kong / Paris]. The language of the arbitration shall be English."},
+ {n:"仲裁条款（SIAC）", b:"Any dispute arising out of or in connection with this Contract shall be submitted to the Singapore International Arbitration Centre (SIAC) for arbitration in accordance with the Arbitration Rules of the SIAC in force at the time of filing, which rules are deemed incorporated by reference. The seat shall be Singapore; the language shall be English."},
+ {n:"公司章程要点清单", b:"- 公司名称与注册地\n- 授权股本与已发行股本\n- 董事人数、资格与辞职机制\n- 股东权利与表决比例（含重大事项一票否决）\n- 利润分配与公积金规则\n- 股权转让限制（优先购买权/跟售权）\n- 清算与解散条件\n- 关联交易回避表决"},
+ {n:"保密协议（NDA）要点", b:"- 定义保密信息范围（含口头/书面）\n- 保密期限（通常 2–5 年，核心技术可更长）\n- 例外：已公开/接收方事先已知/依法披露\n- 使用目的限制（仅用于评估合作）\n- 返还或销毁义务\n- 违约赔偿与救济（禁令救济）\n- 适用法与争议解决（建议仲裁）"},
+ {n:"跨境雇佣合同要点", b:"- 雇佣地法律为准据法\n- 合同期/试用期与通知期\n- 薪酬币种、发放地与个税承担\n- 工作时间、年假与加班规则\n- 竞业限制与保密（注意当地可执行力）\n- 知识产权归属（雇佣期间成果归公司）\n- 解雇事由与经济补偿（法定下限）\n- 数据隐私同意（GDPR/本地法）"}
+];
+const DT={
+ start:{q:"你的出发点是什么？",opts:[{t:"中国公司要出海",next:"cnco"},{t:"中国自然人想境外持股/返程",next:"cnnat"},{t:"纯境外新设，与中国主体无关",next:"foreign"}]},
+ cnco:{verdict:"必须走 <b>ODI 备案</b>（发改委+商务部+外管局三部门）。未备案直接境外投资，利润汇回与后续合规都会受阻，甚至被认定为违规资金出境。"},
+ cnnat:{verdict:"走 <b>37号文登记</b>（外管局）：先设境外SPV，再返程投资境内运营实体。未登记的外汇进出会被卡；SPV 层不要放实际业务以免被穿透。"},
+ foreign:{q:"直接当地注册，是否需要经济实质 / 雇人？",opts:[{t:"仅控股 / IP 壳",next:"hold"},{t:"有真实经营 / 雇人",next:"ops"}]},
+ hold:{verdict:"控股壳优先选有税收协定+法治稳定的地（新加坡/香港/爱尔兰/荷兰），但必须满足<b>经济实质</b>最低要求（当地董事/秘书/少量开支），否则被CRS/反避税穿透；同时留意中国 CFC 规则。"},
+ ops:{verdict:"选市场国或免税区：中东（UAE自由区 0% 合格收入）、东南亚（越南/泰国）、欧盟（需同时满足 GDPR，AI产品加 EU AI Act）。雇人优先 <b>EOR 试水</b>再转本地雇佣，降低解雇成本。"}
+};
+function renderDT(node){
+ const box=document.getElementById('dt'); box.innerHTML='';
+ if(node.verdict){ const v=document.createElement('div'); v.className='verdict'; v.innerHTML=node.verdict; box.appendChild(v); return; }
+ const q=document.createElement('div'); q.className='q'; q.textContent=node.q; box.appendChild(q);
+ const o=document.createElement('div'); o.className='opts';
+ node.opts.forEach(op=>{ const b=document.createElement('button'); b.className='opt'; b.textContent=op.t; b.onclick=()=>renderDT(DT[op.next]); o.appendChild(b); });
+ box.appendChild(o);
+}
+function calcCost(){
+ const c=document.getElementById('c_country').value, t=document.getElementById('c_type').value, d=COST[c][t], o=document.getElementById('c_out');
+ o.style.display='block';
+ o.innerHTML='<b>'+c+' · '+({hold:'控股/IP壳',trade:'贸易/电商',ops:'实体经营+雇人'}[t])+'</b><br>首年花费估算：'+d.r+'<br>税制：'+d.tax+'<br>注意：'+d.note+'<br>官方：<a href="'+d.url+'" target="_blank">'+d.url+'</a>';
+}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function loadCL(){try{return JSON.parse(localStorage.getItem('cl_state')||'{}');}catch(e){return {};}}
+function saveCL(){const s={};document.querySelectorAll('#cl input').forEach(cb=>{if(cb.checked)s[cb.id]=1;});try{localStorage.setItem('cl_state',JSON.stringify(s));}catch(e){}}
+function updCL(){const s=loadCL();let done=0;for(let i=0;i<window._clTotal;i++){if(s['cl'+i])done++;}document.getElementById('cl_cnt').textContent=done+'/'+window._clTotal;document.getElementById('cl_bar').style.width=(done/window._clTotal*100)+'%';}
+function exportCL(){let txt='出海前核对清单（已完成项）\n',any=false;document.querySelectorAll('#cl .chk').forEach(d=>{const cb=d.querySelector('input'),tx=d.querySelector('span').textContent;if(cb.checked){txt+='[x] '+tx+'\n';any=true;}});if(!any)txt+='（无已完成项）\n';navigator.clipboard.writeText(txt).then(()=>alert('已复制已完成清单到剪贴板')).catch(()=>prompt('复制以下清单：',txt));}
+function resetCL(){document.querySelectorAll('#cl input').forEach(cb=>cb.checked=false);saveCL();updCL();}
+function copyTPL(btn){const pre=btn.parentElement.nextElementSibling,txt=pre.textContent;navigator.clipboard.writeText(txt).then(()=>{btn.textContent='已复制';setTimeout(()=>btn.textContent='复制',1200);}).catch(()=>prompt('复制以下内容：',txt));}
+function init(){
+ const sel=document.getElementById('c_country');Object.keys(COST).forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;sel.appendChild(o);});
+ const cl=document.getElementById('cl');let total=0;const state=loadCL();let idx=0;
+ CL.forEach(g=>{const h=document.createElement('div');h.className='grp';h.textContent=g.g;cl.appendChild(h);g.i.forEach(it=>{total++;const id='cl'+idx++;const d=document.createElement('label');d.className='chk';const cb=document.createElement('input');cb.type='checkbox';cb.id=id;cb.checked=!!state[id];cb.onchange=()=>{saveCL();updCL();};const s=document.createElement('span');s.textContent=it;d.appendChild(cb);d.appendChild(s);cl.appendChild(d);});});
+ window._clTotal=total;updCL();
+ const tp=document.getElementById('tpls');TPL.forEach(t=>{const d=document.createElement('div');d.className='tpl';d.innerHTML='<div class="th"><span>'+t.n+'</span><button class="copybtn" onclick="copyTPL(this)">复制</button></div><pre>'+esc(t.b)+'</pre>';tp.appendChild(d);});
+ renderDT(DT.start);
+}
+document.addEventListener('DOMContentLoaded',init);
+</script>
+</main>
+<footer>工具箱为离线辅助，费用/条款均为估算与骨架，正式决策请咨询持牌律师与税务师。数据不离开本机。</footer>
+</body>
+</html>
