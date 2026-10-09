@@ -1677,7 +1677,8 @@ def build():
     L.append("")
     return "\n".join(L)
 
-def build_html(chapters):
+def _data_script(chapters):
+    """把全部条目序列化为内联 JS（供 index.html 与 入口.html 复用），无需运行时 fetch。"""
     import json, re
     data = []
     for c in chapters:
@@ -1698,7 +1699,10 @@ def build_html(chapters):
     meta = {"chapters": [{"no": c["no"], "title": c["title"]} for c in chapters]}
     data_json = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
     meta_json = json.dumps(meta, ensure_ascii=False).replace("</", "<\\/")
-    html = HTML_HEAD + "<script>var DATA=" + data_json + ";var META=" + meta_json + ";</script>" + HTML_BODY
+    return "<script>var DATA=" + data_json + ";var META=" + meta_json + ";</script>"
+
+def build_html(chapters):
+    html = HTML_HEAD + _data_script(chapters) + HTML_BODY
     return html
 
 HTML_HEAD = """<!DOCTYPE html>
@@ -2269,6 +2273,26 @@ td,th{border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;verti
 th{background:#eef1f4;font-weight:600}
 tr:last-child td{border-bottom:none}
 footer{max-width:1100px;margin:0 auto 40px;padding:0 16px;color:var(--mut);font-size:12px}
+.fullbar{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 14px}
+.fullbar input[type=text]{flex:1 1 220px;min-width:180px;padding:8px 11px;border:1px solid var(--line);border-radius:8px;font-size:14px}
+.chsec{margin:12px 0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card)}
+.chhead{display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer;background:#eef1f4;user-select:none}
+.chhead:hover{background:#e3e7eb}
+.chhead .n{font-weight:700;color:#0d1117}
+.chhead .t{flex:1;font-size:14.5px}
+.chhead .c{font-size:12px;color:var(--mut)}
+.chbody{padding:12px 14px;display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-left:4px solid #6e7781;border-radius:10px;padding:12px 14px;box-shadow:0 1px 2px rgba(27,31,36,.06)}
+.card .ch{font-size:12px;color:var(--mut);margin-bottom:4px}
+.card h3{margin:0 0 8px;font-size:15px;line-height:1.4;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.badge{color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:20px;white-space:nowrap}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
+.tag{font-size:11px;background:#eef1f4;color:#57606a;padding:1px 7px;border-radius:20px}
+.f{margin:5px 0;font-size:13.5px}
+.f .k{display:inline-block;min-width:62px;color:var(--mut);font-weight:600;vertical-align:top}
+.f .v{display:inline-block;width:calc(100% - 70px)}
+.src{color:#0969da;text-decoration:none;font-size:12px;margin-left:6px}
+.src:hover{text-decoration:underline}
 </style>
 </head>
 <body>
@@ -2329,6 +2353,37 @@ def build_hub(chapters):
     for a, b in rows:
         L.append("<tr><td>%s</td><td>%s</td></tr>" % (_h(a), _h(b)))
     L.append("</table>")
+    L.append('<h2 class="sec">全文速览（共 %d 条 · 点章标题展开/收起 · 可搜索）</h2>' % total)
+    L.append('<div class="fullbar"><input id="qf" type="text" placeholder="搜索：税、签证、婚恋、DTV、CRS、1260H…"></div>')
+    L.append('<div id="full"></div>')
+    L.append(_data_script(chapters))
+    L.append('''<script>
+    var G={A:"#1a7f37",B:"#0969da",C:"#6e7781"};
+    function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+    function card(e){
+      var tags=(e.tags||"").split(/\s+/).filter(Boolean).map(function(t){return '<span class="tag">'+esc(t)+'</span>';}).join("");
+      var note=e.note?'<div class="f"><span class="k">备注</span><span class="v">'+esc(e.note)+'</span></div>':'';
+      var link=e.url?' <a class="src" href="'+esc(e.url)+'" target="_blank" rel="noopener">↗ 来源</a>':'';
+      return '<article class="card" style="border-left-color:'+G[e.ev]+'"><div class="ch">第'+e.ch+'章</div><h3><span class="badge" style="background:'+G[e.ev]+'">'+e.ev+'</span> '+e.ch+'.'+e.no+' '+esc(e.title)+'</h3><div class="tags">'+tags+'</div><div class="f"><span class="k">成本</span><span class="v">'+esc(e.cost)+'</span></div><div class="f"><span class="k">说人话</span><span class="v">'+esc(e.plain)+'</span></div><div class="f"><span class="k">收益</span><span class="v">'+esc(e.gain)+'</span></div><div class="f"><span class="k">证据</span><span class="v">'+e.ev+'</span></div><div class="f"><span class="k">来源</span><span class="v">'+esc(e.src)+link+'</span></div>'+note+'</article>';
+    }
+    function render(q){
+      var m={};DATA.forEach(function(e){(m[e.ch]=m[e.ch]||[]).push(e);});
+      var html="";
+      META.chapters.forEach(function(c){
+        var list=(m[c.no]||[]).filter(function(e){
+          if(!q)return true;
+          var hay=(e.title+" "+e.plain+" "+e.cost+" "+e.gain+" "+e.src+" "+e.tags+" "+e.note).toLowerCase();
+          return hay.indexOf(q)>-1;
+        });
+        if(!list.length)return;
+        var disp=q?"grid":"none";
+        html+='<div class="chsec"><div class="chhead" onclick="var b=this.nextElementSibling;b.style.display=b.style.display===\'none\'?\'grid\':\'none\'"><span class="n">第'+c.no+'章</span><span class="t">'+esc(c.title)+'</span><span class="c">'+list.length+' 条</span></div><div class="chbody" style="display:'+disp+'">'+list.map(card).join("")+'</div></div>';
+      });
+      document.getElementById("full").innerHTML=html||'<p style="color:#656d76">无匹配。</p>';
+    }
+    document.getElementById("qf").addEventListener("input",function(){render(this.value.trim().toLowerCase());});
+    render("");
+    </script>''')
     L.append("</main>")
     L.append("<footer>《高性价比出海指南》 · 内容以 CC BY 4.0 发布。本页与各视图均由同一生成器生成；所有条目以官方最新发布为准，重大决策请咨询持牌专业人士。</footer>")
     L.append("</body></html>")
