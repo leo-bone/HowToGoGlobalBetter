@@ -2176,6 +2176,10 @@ def build_readme(chapters):
     L.append("")
     L.append("![条目](https://img.shields.io/badge/条目-%d-informational) ![章节](https://img.shields.io/badge/章节-%d-blue) ![证据A级](https://img.shields.io/badge/证据A级-%d-success) ![许可](https://img.shields.io/badge/许可-CC%%20BY%%204.0-green)" % (total, len(chapters), cnt["A"]))
     L.append("")
+    L.append("## 为什么写这本指南")
+    L.append("")
+    L.append("市面上的「出海」内容，要么是行业媒体的散文，要么是收钱的咨询，要么是个别人的野路子——**几乎没有一份「逐条可核验、覆盖个人全场景、把法律/税务/身份/风险讲透」的免费开源手册**。《高性价比人生指南》《高性价比投资指南》把「循证 + 高性价比」的方法论跑通了，这本是同一套方法论的 **「出海」专题兄弟篇**：补上企业出海、跨境破产、法律域外效力、合伙治理、海外就医理赔、跨国离婚这些通用指南明显薄弱、但个人出海真正会踩的坑。")
+    L.append("")
     L.append("## 怎么用")
     L.append("")
     L.append("- **从总入口进**：浏览器打开 `入口.html`，四个视图（离线检索／速查卡／正文／README）一处汇总，并附「我该用哪个？」场景对照表。")
@@ -2183,6 +2187,7 @@ def build_readme(chapters):
     L.append("- **离线检索**：用浏览器打开 `index.html`，可按**章 / 证据等级（A·B·C）/ 关键词**筛选全部条目，支持「只显示〔争议〕」与「随机一条」，无需联网。")
     L.append("- **分目的地速查卡**：打开 `速查卡.html`，按目的地（泰国 / 美国 / 新加坡 / 阿联酋 / 欧洲 / 马来 / 香港 / 日韩 / 澳新 / 英国 / 印尼越南）一键看相关条目。")
     L.append("- **直接上手工具**：打开 `工具箱.html`，用实体选择决策树、出海成本估算器、出海前核对清单、跨境合同模板库。")
+    L.append("- **按主题拆读**：`分册/` 目录下有每一章的独立 Markdown，适合精读、打印与定向分享。")
     L.append("")
     L.append("## 目录")
     L.append("")
@@ -2190,6 +2195,30 @@ def build_readme(chapters):
     L.append("|---|---|")
     for c in sorted(chapters, key=lambda x: x["no"]):
         L.append("| %s | 第 %d 章 %s |" % (c["q"], c["no"], c["title"]))
+    L.append("")
+    L.append("## 我该读哪条路线？（按人群路线图）")
+    L.append("")
+    L.append("| 我是… | 优先看这些章 |")
+    L.append("|---|---|")
+    L.append("| 企业主 / 创业者 | 第 2 / 4 / 10 / 17 / 21 / 23 / 28 / 36 / 37 / 38 / 41 章 |")
+    L.append("| 数字游民 / 远程工作者 | 第 8 / 19 / 31 / 53 章 |")
+    L.append("| 留学生 / 家长 | 第 9 / 20 / 32 / 43 章 |")
+    L.append("| 求职者 | 第 8 / 9 / 19 / 20 / 32 章 |")
+    L.append("| 婚恋 / 组建家庭 | 第 11 / 27 / 35 / 54 章 |")
+    L.append("| 税务 / 身份规划者 | 第 3 / 16 / 25 / 33 / 34 / 39 / 51 / 52 章 |")
+    L.append("| 投资移民 / 黄金签证 | 第 25 / 33 / 34 章 |")
+    L.append("| 退休 / 养老出海 | 第 44 章 |")
+    L.append("| 关心安全 / 应急 | 第 13 / 24 / 45 章 |")
+    L.append("")
+    L.append("## 三部曲：人生 · 投资 · 出海")
+    L.append("")
+    L.append("本指南是「高性价比」方法论三部曲的**出海篇**，与下面两本同源、互补：")
+    L.append("")
+    L.append("- 《高性价比人生指南》——通用人生决策（含出国常识）：https://github.com/eternity4719/HowToLiveBetter")
+    L.append("- 《高性价比投资指南》——个人投资方法论：https://github.com/leo-bone/HowToInvestBetter")
+    L.append("- 《高性价比出海指南》——本篇，专注「跨国实体运营 + 身份税务 + 地缘合规 + 法律域外效力」")
+    L.append("")
+    L.append("三本都用同一套「循证 + 证据分级 + 高性价比」框架，可按需互链阅读。")
     L.append("")
     L.append("## 证据分级说明")
     L.append("")
@@ -2204,7 +2233,48 @@ def build_readme(chapters):
     L.append("- 正文采用 **CC BY 4.0**（署名即可自由改编、分发、用于商业，须注明出处）。")
     L.append("- 本指南为独立创作的循证方法论手册，非任何机构或个人的法律/税务/移民/投资建议。")
     L.append("")
+    L.append("## 数据基准与核实")
+    L.append("")
+    L.append("- 本版内容基准日：**2026-10**。各国税务、签证、制裁清单变动极快，所有数字以**官方最新发布为准**，重大决策前请回官方渠道复核。")
+    L.append("- 每条建议标注〔A/B/C〕证据等级，并附官方/权威来源链接，可逐条点开核验。")
+    L.append("- 路线图：后续版本将为每条增加「核实日期」字段，进一步提升可审计性。")
+    L.append("")
+    L.append("## 常见问题（FAQ）")
+    L.append("")
+    L.append("**Q：这本指南能当法律 / 税务 / 移民意见用吗？**")
+    L.append("A：不能。它是方法论手册，非任何机构或个人的专业意见；个案差异极大，涉及大额资产、身份变更、敏感行业务必咨询持牌国际律师/税务师/移民顾问。")
+    L.append("")
+    L.append("**Q：数据会不会过时？**")
+    L.append("A：会。税率、签证门槛、制裁清单几乎每月都在变；本书已为每条标证据等级并附官方链接，但请把它当「决策起点」而非「终局结论」，落地前以官方当前口径为准。")
+    L.append("")
+    L.append("**Q：我能转载、改编、商用吗？**")
+    L.append("A：可以。正文采用 CC BY 4.0，只要署名即可自由改编、分发、用于商业。")
+    L.append("")
+    L.append("**Q：发现错误或有补充，怎么提？**")
+    L.append("A：见下方「如何贡献」，开 Issue 或直接提 PR，欢迎纠错与补充来源。")
+    L.append("")
+    L.append("## 如何贡献")
+    L.append("")
+    L.append("欢迎 Issue、PR 与讨论。新增或修订条目请遵循统一格式：")
+    L.append("")
+    L.append("```")
+    L.append("成本 / 说人话 / 收益 / 证据等级（A·B·C） / 来源（只引官方与权威机构） / 备注（有争议标〔争议〕）")
+    L.append("```")
+    L.append("")
+    L.append("- 来源**只引官方文件与权威机构**（IRS、BIS、OFAC、EUR-Lex、GOV.UK、IRAS、ATO、各国移民局/公司法/破产法、OECD/KPMG/PwC/HCCH/UNCITRAL 等），不引自媒体与营销号。")
+    L.append("- 不抄袭、不改写任何付费内容；每条保持「可点开核验」。")
+    L.append("- 纠错/补源请在 Issue 中给出官方链接与生效日期。")
+    L.append("")
+    L.append("## 更新日志")
+    L.append("")
+    L.append("- **v2026.10** — %d 条 / %d 章；证据分级 A=%d / B=%d / C=%d；URL 100%% 覆盖；新增 PDF / EPUB / Anki 牌组 / 分目的地速查卡 / 工具箱 / 总入口页 / 分册 等多形态交付。" % (total, len(chapters), cnt["A"], cnt["B"], cnt["C"]))
+    L.append("- 早期版本从 269 条 / 31 章起步，按「冲量 + 提升深度 + 借鉴竞品」迭代至当前规模。")
+    L.append("")
     L.append("*免责声明：本指南为方法论手册，非法律、税务、移民或投资建议。各国税务、签证、制裁政策变动频繁且个案差异极大，任何涉及大额资产、身份变更、敏感行业的决策，务必咨询持牌国际税务律师、移民律师及合规顾问，并以官方最新发布为准。*")
+    L.append("")
+    L.append("## 如果对你有用")
+    L.append("")
+    L.append("如果这本指南帮你省了税、避了坑、少走了弯路，点个 **Star** 让更多人看到，也欢迎分享给要出海的朋友。你的 Star 是持续更新最大的动力。")
     L.append("")
     return "\n".join(L)
 
@@ -2504,11 +2574,19 @@ main{max-width:1100px;margin:18px auto 56px;padding:0 16px}
 .copybtn:hover{border-color:var(--blue);color:var(--blue)}
 .disclaimer{font-size:12px;color:var(--mut);margin-top:8px}
 footer{max-width:1100px;margin:0 auto 40px;padding:0 16px;color:var(--mut);font-size:12px}
+.matrix .scroll{overflow-x:auto;margin-top:10px;border:1px solid var(--line);border-radius:8px}
+.matrix table{border-collapse:collapse;width:100%;min-width:1180px;font-size:13px}
+.matrix th,.matrix td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;line-height:1.5}
+.matrix th{background:#eef1f4;cursor:pointer;white-space:nowrap;font-weight:700;position:sticky;top:0}
+.matrix th:hover{color:var(--blue)}
+.matrix th .arr{color:var(--mut);font-size:10px}
+.matrix td a{color:var(--blue);text-decoration:none}
+.matrix tbody tr:nth-child(even){background:#fafbfc}
 </style>
 </head>
 <body>
 <header><h1>高性价比出海指南 · 工具箱</h1>
-<p>四个能直接用的离线工具：实体选择决策树、出海成本估算器、出海前核对清单、跨境合同模板库。纯前端、无需联网，双击即可用。</p></header>
+<p>五个能直接用的离线工具：实体选择决策树、出海成本估算器、出海前核对清单、跨境合同模板库、<b>国别对比矩阵</b>（14 个目的地可排序横向对比）。纯前端、无需联网，双击即可用。</p></header>
 <nav class="nav">
 <a href="入口.html">总入口</a>
 <a href="index.html">离线检索</a>
@@ -2521,7 +2599,54 @@ footer{max-width:1100px;margin:0 auto 40px;padding:0 16px;color:var(--mut);font-
 <main>
 """
 
-def build_tools(chapters):
+def build_matrix_section(matrix):
+    """渲染可排序的国别对比矩阵表格（竞品风格：横向对比 + 点击表头排序）。"""
+    import re
+    HEADERS = [("dest","目的地"),("route","身份路径"),("min_funds","最低资金门槛"),
+               ("pit","个税最高档"),("cit","公司税"),("healthcare","医疗"),
+               ("schooling","国际学校"),("safety","安全"),("chinese","中文友好"),
+               ("tz","时差(对华)"),("rent","市中心1卧月租"),("pr","永居路径"),("src","来源")]
+    def esc(x):
+        return str(x).replace("&","&amp;").replace("<","&lt;").replace(">","&gt;")
+    ths = "".join('<th onclick="mSort(%d)">%s <span class="arr">▲▼</span></th>' % (i,t)
+                  for i,(_,t) in enumerate(HEADERS))
+    rows = []
+    for r in matrix:
+        tds = []
+        for i,(k,_) in enumerate(HEADERS):
+            v = r.get(k,"")
+            if k == "src":
+                m = re.search(r'https?://[^\s）)｜|]+', v)
+                if m:
+                    tds.append('<td><a href="%s" target="_blank">官方↗</a></td>' % m.group(0))
+                else:
+                    tds.append('<td>%s</td>' % esc(v))
+            else:
+                tds.append('<td>%s</td>' % esc(v))
+        rows.append("<tr>"+"".join(tds)+"</tr>")
+    return ('<section class="tool matrix"><h2>⑤ 国别对比矩阵：14 个目的地横向对比</h2>'
+            '<p class="sub">借鉴 Nomad List / Expatistan / VisaGuide 的标准化对比思路，把主流出海目的地放到同一张表。点击表头可排序；数字为 2025–2026 公开区间，随政策汇率浮动，落地前以官方为准。</p>'
+            '<div class="scroll"><table id="mTbl"><thead><tr>'+ths+'</tr></thead>'
+            '<tbody>'+"\n".join(rows)+'</tbody></table></div>'
+            '<p class="disclaimer">税率与门槛核实至 2026 年；生活成本锚点引 Numbeo 区间中值。本表为方法论对比，非税务/移民意见。</p></section>'
+            '<script>'
+            'function mSort(col){var t=document.getElementById("mTbl");var tb=t.tBodies[0];'
+            'var rows=Array.prototype.slice.call(tb.rows);'
+            'var asc=t.getAttribute("data-asc")!=="1";'
+            'rows.sort(function(a,b){var x=a.cells[col].innerText,y=b.cells[col].innerText;'
+            'var xn=parseFloat((x||"").replace(/[^0-9.]/g,""));'
+            'var yn=parseFloat((y||"").replace(/[^0-9.]/g,""));'
+            'if(!isNaN(xn)&&!isNaN(yn))return asc?xn-yn:yn-xn;'
+            'return asc?x.localeCompare(y,"zh"):y.localeCompare(x,"zh");});'
+            'for(var i=0;i<rows.length;i++)tb.appendChild(rows[i]);'
+            't.setAttribute("data-asc",asc?"1":"0");}'
+            '</script>')
+
+
+
+def build_tools(chapters, matrix=None):
+    if matrix is None:
+        from gen_出海指南_对比矩阵 import MATRIX as matrix
     L = []
     L.append(TOOLS_HEAD)
     # ① 决策树
@@ -2551,6 +2676,8 @@ def build_tools(chapters):
     L.append('<section class="tool"><h2>④ 跨境合同模板库</h2>'
              '<p class="sub">可直接复制使用的条款骨架。注意：模板非法律意见，正式签署前请当地律师过目。</p>'
              '<div id="tpls"></div></section>')
+    # ⑤ 国别对比矩阵（可排序）
+    L.append(build_matrix_section(matrix))
     # 脚本
     L.append('''
 <script>
@@ -2687,7 +2814,7 @@ def build_hub(chapters):
     L.append('<div class="fullbar"><input id="qf" type="text" placeholder="搜索：税、签证、婚恋、DTV、CRS、1260H…"></div>')
     L.append('<div id="full"></div>')
     L.append(_data_script(chapters))
-    L.append('''<script>
+    L.append(r'''<script>
     var G={A:"#1a7f37",B:"#0969da",C:"#6e7781"};
     function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
     function card(e){
@@ -2751,6 +2878,12 @@ from gen_出海指南_国别财富 import CH47, CH48, CH49, CH50, CH51, CH52, CH
 for _CH in (CH47, CH48, CH49, CH50, CH51, CH52, CH53, CH54):
     ch(_CH["no"], _CH["title"], _CH["q"], _CH["intro"], _CH["entries"])
 
+# =====================================================================
+# 第55章 国别对比矩阵（标准化横向对比，借鉴 Nomad List/Expatistan/VisaGuide）
+from gen_出海指南_对比矩阵 import CH55, MATRIX
+ch(CH55["no"], CH55["title"], CH55["q"], CH55["intro"], CH55["entries"])
+
+
 if __name__ == "__main__":
     out = build()
     with open("高性价比出海指南.md", "w", encoding="utf-8") as f:
@@ -2766,12 +2899,17 @@ if __name__ == "__main__":
     with open("入口.html", "w", encoding="utf-8") as f:
         f.write(build_hub(chapters))
     with open("工具箱.html", "w", encoding="utf-8") as f:
-        f.write(build_tools(chapters))
-    # 离线导出：PDF / EPUB / Anki
-    import build_exports
-    build_exports.build_pdf(chapters, "高性价比出海指南.pdf")
-    build_exports.build_epub(chapters, "高性价比出海指南.epub")
-    build_exports.build_anki(chapters, "高性价比出海指南.apkg")
+        f.write(build_tools(chapters, MATRIX))
+    # 离线导出：PDF / EPUB / Anki（reportlab / genanki 为可选依赖，缺失时跳过并提示）
+    try:
+        import build_exports
+        build_exports.build_pdf(chapters, "高性价比出海指南.pdf")
+        build_exports.build_epub(chapters, "高性价比出海指南.epub")
+        build_exports.build_anki(chapters, "高性价比出海指南.apkg")
+    except ImportError as e:
+        print("⚠️ 跳过 PDF/EPUB/Anki 导出（缺少可选依赖 %s）。安装：pip install -r requirements.txt" % e.name)
+    except Exception as e:
+        print("⚠️ 导出异常已跳过：%s" % e)
     a = sum(1 for c in chapters for e in c["entries"] if e["ev"].replace("证据等级：","").strip()=="A")
     b = sum(1 for c in chapters for e in c["entries"] if e["ev"].replace("证据等级：","").strip()=="B")
     c = sum(1 for c in chapters for e in c["entries"] if e["ev"].replace("证据等级：","").strip()=="C")

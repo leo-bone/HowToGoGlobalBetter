@@ -1,0 +1,4 @@
+# 离线导出依赖（可选）：生成 PDF / EPUB / Anki 牌组时需要
+# 仅生成 Markdown / HTML / 速查卡 / 入口页 / 工具箱 / 分册 不需要这些库。
+reportlab>=4.0
+genanki>=0.13
