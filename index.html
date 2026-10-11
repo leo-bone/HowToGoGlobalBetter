@@ -71,7 +71,7 @@ footer{max-width:1100px;margin:0 auto 40px;padding:0 16px;color:var(--mut);font-
 <script>
 var gradeColor={A:"#1a7f37",B:"#0969da",C:"#6e7781"};
 var gradeName={A:"A 权威",B:"B 机构",C:"C 推论"};
-function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",""":"&quot;"}[c];});}
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
 function tagsArr(t){return (t||"").split(/\s+/).filter(Boolean);}
 function card(e){
   var tags=tagsArr(e.tags).map(function(t){return '<span class="tag">'+esc(t)+'</span>';}).join("");
