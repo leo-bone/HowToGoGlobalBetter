@@ -27,6 +27,7 @@ def main():
                 "entry_no": e["n"],
                 "title": e["title"],
                 "tags": e.get("tags", "") or "",
+                "exp": e.get("exp", "") or "",
                 "cost": e.get("cost", "") or "",
                 "plain": e.get("plain", "") or "",
                 "gain": e.get("gain", "") or "",

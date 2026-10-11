@@ -16,18 +16,26 @@ def _esc(s):
         return ""
     return (str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"))
 
+def _strip(s, pre):
+    s = (s or "").strip()
+    return s[len(pre):] if s.startswith(pre) else s
+
 def entry_html(e):
     parts = ['<div class="entry">']
     parts.append('<h3>%s %s</h3>' % (_esc(e["n"]), _esc(e["title"])))
     if e.get("tags"):
         parts.append('<p class="tags">%s</p>' % _esc(e["tags"]))
-    for label, key in (("成本", "cost"), ("说人话", "plain"), ("收益", "gain"),
-                       ("证据等级", "ev"), ("来源", "src")):
-        v = e.get(key) or ""
-        # 字段值多已带「标签：」前缀，避免重复；没有则补上
-        if v and not v.lstrip().startswith(label):
-            v = label + "：" + v
-        parts.append('<p><b>%s</b> %s</p>' % (label, _esc(v)))
+    labels = (("解释", "exp"), ("成本", "cost"), ("说人话", "plain"), ("收益", "gain"),
+              ("证据等级", "ev"), ("来源", "src"))
+    for label, key in labels:
+        v = (e.get(key) or "").strip()
+        # 先剥掉字段值自带的前缀（如「成本：」），再统一渲染一次标签，避免「成本 成本：」重复
+        v = _strip(v, label + "：")
+        if key == "exp" and not v:
+            continue
+        if key == "ev":
+            v = v.replace("证据等级：", "").strip()
+        parts.append('<p><b>%s</b>：%s</p>' % (label, _esc(v)))
     if e.get("note"):
         parts.append('<p class="note"><b>备注</b> %s</p>' % _esc(e["note"]))
     parts.append('</div>')
