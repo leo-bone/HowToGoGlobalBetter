@@ -1898,11 +1898,7 @@ footer{max-width:1100px;margin:0 auto 40px;padding:0 16px;color:var(--mut);font-
 <a href="index.html" class="cur">离线检索</a>
 <a href="速查卡.html">分目的地速查卡</a>
 <a href="工具箱.html">工具箱</a>
-<a href="高性价比出海指南.md">正文 MD</a>
-<a href="速查卡.md">速查卡 MD</a>
-<a href="README.md">README</a>
 <a href="高性价比出海指南.pdf">PDF 导出</a>
-<a href="高性价比出海指南.epub">EPUB 导出</a>
 <a href="高性价比出海指南.apkg">Anki 导出</a>
 </nav>
 <div class="controls">
@@ -2126,11 +2122,7 @@ footer{max-width:1100px;margin:0 auto 40px;padding:0 16px;color:var(--mut);font-
 <a href="index.html">离线检索</a>
 <a href="速查卡.html" class="cur">分目的地速查卡</a>
 <a href="工具箱.html">工具箱</a>
-<a href="高性价比出海指南.md">正文 MD</a>
-<a href="速查卡.md">速查卡 MD</a>
-<a href="README.md">README</a>
 <a href="高性价比出海指南.pdf">PDF 导出</a>
-<a href="高性价比出海指南.epub">EPUB 导出</a>
 <a href="高性价比出海指南.apkg">Anki 导出</a>
 </nav>
 """
@@ -2536,11 +2528,7 @@ footer{max-width:1100px;margin:0 auto 40px;padding:0 16px;color:var(--mut);font-
 <a href="index.html">离线检索</a>
 <a href="速查卡.html">分目的地速查卡</a>
 <a href="工具箱.html">工具箱</a>
-<a href="高性价比出海指南.md">正文 MD</a>
-<a href="速查卡.md">速查卡 MD</a>
-<a href="README.md">README</a>
 <a href="高性价比出海指南.pdf">PDF 导出</a>
-<a href="高性价比出海指南.epub">EPUB 导出</a>
 <a href="高性价比出海指南.apkg">Anki 导出</a>
 </nav>
 <main>
@@ -2610,9 +2598,6 @@ footer{max-width:1100px;margin:0 auto 40px;padding:0 16px;color:var(--mut);font-
 <a href="index.html">离线检索</a>
 <a href="速查卡.html">分目的地速查卡</a>
 <a href="工具箱.html" class="cur">工具箱</a>
-<a href="高性价比出海指南.md">正文 MD</a>
-<a href="速查卡.md">速查卡 MD</a>
-<a href="README.md">README</a>
 </nav>
 <main>
 """
@@ -3121,7 +3106,7 @@ def build_hub(chapters):
     L.append("</main>")
     L.append('<footer>《高性价比出海指南》· CC BY 4.0。全部内容已内嵌本页；重大决策请咨询持牌专业人士。独立页面（新窗口打开）：'
              '<a href="index.html">检索</a> · <a href="速查卡.html">速查卡</a> · <a href="工具箱.html">工具箱</a> · '
-             '<a href="高性价比出海指南.pdf">PDF</a> · <a href="README.md">README</a></footer>')
+             '<a href="高性价比出海指南.pdf">PDF</a></footer>')
     L.append("</body></html>")
     return "\n".join(L)
 
