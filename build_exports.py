@@ -135,13 +135,17 @@ def build_pdf(chapters, path="高性价比出海指南.pdf"):
             E.append(Paragraph("%s %s" % (_esc(e["n"]), _esc(e["title"])), h3))
             if e.get("tags"):
                 E.append(Paragraph(_esc(e["tags"]), tagp))
-            for label, key in (("成本", "cost"), ("说人话", "plain"),
-                               ("收益", "gain"), ("证据等级", "ev"),
-                               ("来源", "src")):
-                v = e.get(key) or ""
-                if v and not v.lstrip().startswith(label):
-                    v = label + "：" + v
-                E.append(Paragraph("<b>%s</b> %s" % (label, _esc(v)), body))
+            # 先「解释」后「成本」；字段值若已带「标签：」前缀则先剥离，避免「成本 成本：」重复
+            for label, key in (("解释", "exp"), ("成本", "cost"),
+                               ("说人话", "plain"), ("收益", "gain"),
+                               ("证据等级", "ev"), ("来源", "src")):
+                v = (e.get(key) or "").strip()
+                v = _strip(v, label + "：")
+                if key == "ev":
+                    v = v.replace("证据等级：", "").strip()
+                if key == "exp" and not v:
+                    continue
+                E.append(Paragraph("<b>%s</b>：%s" % (label, _esc(v)), body))
             if e.get("note"):
                 E.append(Paragraph("<b>备注</b> %s" % _esc(e["note"]), small))
             E.append(Spacer(1, 4))
@@ -267,11 +271,14 @@ def build_anki(chapters, path="高性价比出海指南.apkg"):
                 front += '<p style="color:#2e7d32;font-size:.85em">%s</p>' % _esc(e["tags"])
             front += "<p>%s</p>" % _esc(e.get("plain") or "")
             back = ""
-            for label, key in (("成本", "cost"), ("收益", "gain"),
+            for label, key in (("解释", "exp"), ("成本", "cost"), ("收益", "gain"),
                                ("证据等级", "ev"), ("来源", "src")):
-                v = e.get(key) or ""
-                if v and not v.lstrip().startswith(label):
-                    v = label + "：" + v
+                v = (e.get(key) or "").strip()
+                v = _strip(v, label + "：")
+                if key == "ev":
+                    v = v.replace("证据等级：", "").strip()
+                if key == "exp" and not v:
+                    continue
                 back += "<p><b>%s</b> %s</p>" % (label, _esc(v))
             if e.get("note"):
                 back += '<p style="color:#666">%s</p>' % _esc(e["note"])
