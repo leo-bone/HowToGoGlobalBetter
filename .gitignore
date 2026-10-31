@@ -2,3 +2,12 @@
 __pycache__/
 *.pyc
 .DS_Store
+
+
+# --- 环境变量与密钥（勿提交）---
+.env
+.env.local
+.env.*.local
+!.env.example
+*.pem
+*.p12
